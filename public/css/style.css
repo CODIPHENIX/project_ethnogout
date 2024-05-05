@@ -1,0 +1,270 @@
+@import url('reset.css');
+:root{
+    --primary-color:#FF8309;
+    --secondary-colors:#FFAF00;
+    --thirt-color:#471713;
+    --text-color:#716C6C;
+    --input-color:#C2C2C2;
+    --icon-color:#FCE0B1;
+}
+*{
+    -webkit-transition: all 50ms linear;
+    -moz-transition: all 50ms linear;
+    -o-transition: all 50ms linear;
+    transition: all 50ms linear;
+}
+
+body{
+    color: var(--text-color);
+    position: relative;
+    min-height: 100vh;
+    display:flex;
+    flex-direction:column;
+    
+}
+h1,h2,h3,h4{
+    color: var(--thirt-color);
+}
+header{
+    position: relative;
+    padding: 1rem;  
+    background-color: var(--secondary-colors);
+}
+.nav_bar{
+    width: 100%;
+    max-width: 1900px;
+    display:flex ;
+    margin: 0 auto;
+    align-items: center;
+    gap: 2;
+    justify-content: space-between;
+
+    
+}
+.nav{
+    display: none;
+}
+.logo{
+    width: 15rem;
+}
+.user_icon{
+    display: none;
+}
+.icon{
+    color: var(--icon-color);
+    font-size: 2.6rem;
+    cursor: pointer;
+
+}
+.searchs_section{
+    background-color: var(--primary-color);
+    padding: 1rem;
+}
+.searchs_section{
+display: none;
+}
+
+
+.icon_s{
+    color: var(--icon-color);
+    font-size: 2rem;
+    width: 10%;
+    max-width: 2rem;
+    padding: 0.5rem;
+    display: flex;
+    justify-content: center;
+    background-color: var(--secondary-colors);
+    padding: 1rem;
+
+}
+.search_form{
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 0.8rem;
+    overflow: hidden;
+    border: solid #fff;
+    box-shadow: 1px 3px 9px rgba(0, 0, 0, 0.2);
+}
+input[type=search] {
+     border:none;  
+  }
+::placeholder{
+    color:var(--input-color);
+
+}
+main{
+    flex: 1;
+    padding: 2rem;
+    background-size: cover;
+}
+.signin_f{
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    background-color: #fff;
+    max-width: 45rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    border-radius: 0.8rem;
+
+}
+.inputcontrol{
+    margin-bottom: 2rem ;
+}
+input{
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    padding: 1rem;
+    margin: 0 auto;
+    color:var(--text-color);
+    border-radius: 0.8rem;
+    border: 0.15rem solid var(--text-color);
+
+}
+input.checkbox{
+    width: 2rem;
+    height: 2rem;
+
+}
+.cb{
+    display: flex;
+    gap: 1rem;
+    text-align: left;
+    
+}
+
+.cb span{
+    margin-right: auto;
+}
+
+.conn{
+    display: block;
+    width: 100%;
+    font-weight: 600;
+    color: #fff;
+    padding: 1rem;
+    border-radius: 0.8rem;
+    background-color: var(--primary-color);
+    margin-top: 2rem;
+    cursor: pointer;
+}
+.arrow{
+    margin: 0 auto;
+    width: 5rem;
+    padding: 2rem;
+}
+footer{
+    box-sizing: border-box;
+    padding: 2rem;
+    margin: 0 auto;
+    text-align: center;
+    background-color: var(--primary-color);
+
+    color: #fff;
+
+    width: 100%;
+}
+.sfnav{
+    display: none;
+}
+.bold{
+    font-weight: 700;
+    color: var(--text-color);
+    text-decoration: underline;
+}
+.ssdiv{
+    display: none;
+}
+
+
+/* responsive */
+@media screen and (min-width:768px) {
+
+    body{
+        font-size: 1.4rem;
+    }
+    .nav_bar{
+        width: 90%;
+    }
+    main{
+        padding: 5rem;
+        background-image: url("../asset/appimg/bck_img.jpg");
+    }
+    .signin_f{
+        padding: 3rem;
+
+    }
+
+}
+@media screen and (min-width:1024px) {
+    body{
+        font-size: 1.6rem;
+    }
+    .ssdiv{
+        display: block;
+    }
+
+    .icon_menu{
+        display: none;
+        -webkit-transition: all 50ms linear;
+        -moz-transition: all 50ms linear;
+        -o-transition: all 50ms linear;
+        transition: all 50ms linear;
+    }
+    .nav{
+        display: block;
+    }
+    .nav{
+        display: flex;
+        width: 5rem;
+        gap: 2rem;
+        
+    }
+    .nav li a{
+        color: #fff;
+        font-weight: 600;
+        transition: 500ms;
+    }
+    .nav li a:hover{
+        color: var(--thirt-color);
+    }
+    .ssdiv{
+        width: 43%;
+  
+    }
+    .sdiv{
+        padding: 0;
+        position: relative;
+        width: 30rem;
+        margin-left: auto;
+    }
+    .sfnav{
+        display: block;
+}
+.logo{
+    margin-left: auto;
+
+}
+.sfnav{
+    display: flex;
+    margin:0;
+
+}
+    .search-icon{
+        display: none;
+    }
+    .searchs_section{
+        display: none;
+    }
+
+
+
+
+}
+
