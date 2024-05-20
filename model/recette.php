@@ -26,7 +26,7 @@ class recette
         }
     }
 
-    public function setrecette($conn,$userid,$idpays,$nomrecette,$difficulter,$temp_prepa,$cook_temp,$date_publication)
+    public function setrecette($conn,$userid,$idpays,$nomrecette,$image,$difficulter,$temp_prepa,$cook_temp,$date_publication)
     {
         if ($this->recetteExists($conn,$nomrecette)){
             $this->response['error']=true;
@@ -34,11 +34,11 @@ class recette
             return $this->response;
         }else{
 
-          $qry_setrecette=$conn->prepare("INSERT INTO recette(iduser,idpays,titrerecette,difficulter,temp_prepa,
+          $qry_setrecette=$conn->prepare("INSERT INTO recette(iduser,idpays,titrerecette,image_recette,difficulter,temp_prepa,
                                         cook_temp,date_publication) 
                                         VALUES (?, ?, ?, ?, ?, ?,?)");
 
-            $qry_setrecette->bind_param("iissiis", $userid,$idpays,$nomrecette,$temp_prepa,$cook_temp,$date_publication);
+            $qry_setrecette->bind_param("iisssiis", $userid,$idpays,$nomrecette,$image,$difficulter,$temp_prepa,$cook_temp,$date_publication);
 
             if($qry_setrecette->execute()){
                 $this->response['error']=false;
@@ -70,14 +70,26 @@ class recette
 
         }else{
             $this->response['error']=true;
-            $this->response['message']="Vous n'avez pas encore ajouter de recette.";
+            $this->response['message']="aucune recette";
         }
 
         return $this->response;
     }
-    public function getallrecette($conn)
+    
+    public function getallrecette($conn,$limit=NULL)
     {
-        $qry_getallrecettes=$conn->prepare("SELECT * FROM recette");
+        $stmt="SELECT * FROM recette";
+
+        if(!is_null($limit) && is_numeric($limit) && $limit > 0){
+            $stmt.="limit ?";
+        }
+        $qry_getallrecettes=$conn->prepare("stmt");
+
+        if(!is_null($limit) && is_numeric($limit) && $limit > 0){
+            $qry_getallrecettes->bind_param("i", $limit);
+        }
+
+
         $qry_getallrecettes->execute();
         $result = $qry_getallrecettes->get_result();
         if($result->num_rows >0){
@@ -252,9 +264,9 @@ class recette
     }
 
 
-    public function updaterecette($conn, $nomrecette,$difficulter,$temp_prepa,$cook_temp,$idrecette){
+    public function updaterecette($conn, $nomrecette,$image,$difficulter,$temp_prepa,$cook_temp,$idrecette){
 
-        $qry_updateuser=$conn->prepare("UPDATE recette SET titrerecette=?,difficulter=?,temp_prepa=?,difficulter=?,cook_temp=?
+        $qry_updateuser=$conn->prepare("UPDATE recette SET titrerecette=?,image_recette=?,difficulter=?,temp_prepa=?,difficulter=?,cook_temp=?
                                         WHERE idrecette=?");
         $qry_updateuser->bind_param("siii",$nomrecette,$difficulter,$temp_prepa,$cook_temp,$idrecette);
 

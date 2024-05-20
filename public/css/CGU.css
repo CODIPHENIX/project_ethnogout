@@ -1,0 +1,47 @@
+
+    /* Styles CSS */
+    main.CGU{
+        background-color: #FCE0B1; 
+    }
+
+.container.CGU {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 3rem;
+    background-color: #FFF;
+    border-radius: 0.8rem;
+    
+    box-shadow: 1px 3px 9px rgba(0, 0, 0, 0.2);
+}
+
+h1.CGU {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+p.CGU {
+    margin-bottom: 1rem;
+
+}
+ol.CGU{
+    text-align: justify;
+    list-style: decimal;
+    width: 100%;
+    
+}
+ol.CGU li{
+    box-sizing: border-box;
+}
+
+.contact-link.CGU {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    /* Responsive styles for smaller screens */
+    .container.CGU {
+      
+        margin: 0;
+    }
+}

@@ -8,11 +8,11 @@ require_once __DIR__ . "/../../controller/usercontroller.php";
 
 use controller\usercontroller;
 
-    $controluser= new usercontroller();
+$controluser=new usercontroller();
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
-
-            $controluser->PostUser($conn);
+    $controluser->loginuser($conn);
+   
 }
 else {
     http_response_code(405); // Méthode non autorisée

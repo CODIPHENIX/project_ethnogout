@@ -18,9 +18,8 @@ class User{
         $result = $qry_checkuser->get_result();
         $this->stm_result= $result;
         if ($result->num_rows > 0) {
-            return true;
+            return $result;
         } else {
-
             return false;
         }
     }
@@ -29,7 +28,7 @@ class User{
     {
         if ($this->userExists($conn,$email)){
         $this->response['error']=true;
-        $this->response['message']= "cette utilisateur exist deja";
+        $this->response['message']= ['email' => 'Cet utilisateur existe déjà.'];
         }
         else{
 
@@ -82,20 +81,6 @@ class User{
             }
         }
         return $this->response;
-    }
-
-    public function getuser($conn,$email,$password){
-        if ($this->userExists($conn,$email)){
-            $user = $this->stm_result->fetch_assoc();
-            
-            if(password_verify($password, $user['userpwd'])){
-                $this->response['error']=false;
-            }
-            else{
-                $this->response['error']=true;
-                $this->response['message']="mot de passe erroné.";
-            }
-        }
     }
 
     public function getusrbyID($conn,$userid)
