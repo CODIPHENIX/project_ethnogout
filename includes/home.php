@@ -1,8 +1,4 @@
 <?php
-
-session_start();
-
-
 require_once __DIR__ . "/../includes/header.inc.php";
 require_once __DIR__ . "/../includes/part/nav.part.inc.php";
 ?>
@@ -191,39 +187,29 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
     <section class="part">
         <h2>Nouveauté</h2>
         <div class="grid_d grid_rr">
+            <?php if(is_array($newrecettes)):?>
+            <?php foreach($newrecettes as $new):?>
             <ul class="rr">
 
                 <li class="rr_img N_img">
-                    <a href="#" ><img src="#" alt="image recette"></a>
+                    <a href="./recette.php?id=<?php echo intval($new['idrecette'])?>" ><img src="<?php echo htmlspecialchars($new['image_recette'])?>" alt="image recette"></a>
                 </li>
-                <li class="N_part"><h3>Titre</h3></li>
+                <li class="N_part"><h3><?php echo htmlspecialchars($new['titrerecette'])?></h3></li>
             </ul>
-            <ul class="rr">
-
-                <li class="rr_img N_img">
-                    <a href="#" ><img src="#" alt="image recette"></a>
-                </li>
-                <li class="N_part"><h3>Titre</h3></li>
-            </ul>
-            <ul class="rr">
-
-                <li class="rr_img N_img">
-                    <a href="#" ><img src="#" alt="image recette"></a>
-                </li>
-                <li class="N_part"><h3>Titre</h3></li>
-            </ul>
-            <ul class="rr">
-
-                <li class="rr_img N_img">
-                    <a href="#" ><img src="#" alt="image recette"></a>
-                </li>
-                <li class="N_part"><h3>Titre</h3></li>
-            </ul>
+            <?php endforeach;?>
+            <?php else:?>
+            <p><?php echo $newrecettes ?></p>
+            <?php endif;?>
 
         </div>
     </section>
 
 
 </main>
+
+<?php
+
+require_once __DIR__ . "/../includes/footer.inc.php"
+?>
 
 

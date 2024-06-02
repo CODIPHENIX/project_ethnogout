@@ -6,7 +6,6 @@ use Exception;
 class recette
 {
     private $response=array();
-    private $stm_result;
 
     public function getResponse() {
         return $this->response;
@@ -119,11 +118,50 @@ class recette
         return $this->response;
 
     }
+
+    public function getallrecettenew($conn,$limit=NULL)
+    {
+        $stmt="SELECT r.idrecette,r.titrerecette,r.image_recette,r.date_publication,a.note
+                FROM recette r 
+                LEFT JOIN avis a
+                ON r.idrecette = a.idrecette
+                ORDER BY 
+                r.date_publication DESC ";
+
+        if(!is_null($limit) && is_numeric($limit) && $limit > 0){
+            $stmt.="limit ?";
+        }
+        $qry_getallrecettes=$conn->prepare($stmt);
+
+        if(!is_null($limit) && is_numeric($limit) && $limit > 0){
+            $qry_getallrecettes->bind_param("i", $limit);
+        }
+
+
+        $qry_getallrecettes->execute();
+        $result = $qry_getallrecettes->get_result();
+        if($result->num_rows >0){
+            $recettes = array();
+
+            while ($recette = $result->fetch_assoc()) {
+                $recettes[] = $recette;
+            }
+            $this->response['error']=false;
+            $this->response['message']= $recettes;
+
+        }else{
+            $this->response['error']=true;
+            $this->response['message']="Aucune recette trouvé.";
+        }
+
+        return json_encode($this->response);
+
+    }
     public function getetaperecette($conn,$idrecette)
     {
         $qry_getetaperecette=$conn->prepare("SELECT *
                                          FROM etape_prepa WHERE id_recette=?
-                                         ORDER BY num_prepa ASC");
+                                         ORDER BY num_prepa ");
         $qry_getetaperecette->bind_param("i", $idrecette);
         $qry_getetaperecette->execute();
 

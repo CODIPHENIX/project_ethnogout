@@ -504,9 +504,14 @@ button#sent_cmt ,.btnStlye{
 .annuler{
     background-color: var(--text-color);
 }
-button#sent_cmt.disabled{
+button#sent_cmt.disabled
+{
     background-color: var(--input-color);
 }
+.disabled{
+    color: var(--input-color);
+}
+
 .avatar_user{
     display: flex;
     gap: 1rem;
@@ -794,9 +799,8 @@ display: flex;
 }
 
 .iconUsra{
-
     font-size: 1.5rem;
-    cursor: pointer;
+
 }
 .modifyicon{
     color: var(--primary-color);
@@ -804,7 +808,8 @@ display: flex;
 .modifyicon:hover{
     color: var(--text-color);
 }
-.iconUsra{
+.deleteicon{
+    cursor: pointer;
     color: var(--thirt-color);
 }
 
@@ -1264,9 +1269,7 @@ display: block;
         grid-template-columns:  repeat(auto-fill, minmax(200px, 1fr));
     }
     .iconUsra{
-
         font-size: 2rem;
-
     }
 
     /*nouvelle recette*/
