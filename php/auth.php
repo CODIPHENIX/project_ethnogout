@@ -1,6 +1,6 @@
 <?php
 // auth.php
-session_start();
+
 
 function checkAuth() {
     if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -21,5 +21,8 @@ function checkUser() {
         header('Location: no_access.php');
         exit;
     }
+}
+function isLoggedIn() {
+    return isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true;
 }
 

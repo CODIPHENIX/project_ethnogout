@@ -1,5 +1,13 @@
 <?php
+require __DIR__."/../model/config.php";
+require __DIR__."/../model/recette.php";
+require __DIR__."/../model/avis.php";
+require __DIR__."/../controller/avisControlleur.php";
 
-require_once __DIR__ . "/../includes/myavis.inc.php";
-require_once __DIR__ . "/../includes/footer.inc.php"
-    ?>
+use controller\avisControlleur;
+
+
+$Controller = new avisControlleur($conn);
+$Controller->showUserAvis();
+
+?>

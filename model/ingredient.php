@@ -30,12 +30,10 @@ class ingredient
     public function setingredient($conn,$nomingredient)
     {
         if ($this->ingredientExists($conn,$nomingredient)){
-            $this->response['error']=true;
-            return $this->response;
+            return true;
         }else{
 
-            $qry_setrecette=$conn->prepare("INSERT INTO ingredients(nom_ingredients) 
-                                        VALUES ?");
+            $qry_setrecette = $conn->prepare("INSERT INTO ingredients (nom_ingredients) VALUES (?)");
 
             $qry_setrecette->bind_param("s", $nomingredient);
 
@@ -49,17 +47,10 @@ class ingredient
         }
         return $this->response;
     }
+
+
     public function addIngredientToRecette($conn, $idRecette, $idIngredient, $quantity, $unit)
     {
-
-
-        if (!$this->ingredientExists($conn, $idIngredient)) {
-            $result = $this->setingredient($conn, $idIngredient);
-            if ($result['error']) {
-                $this->response['error'] = true;
-                return $this->response;
-            }
-        }
 
         $qry_addIngredient = $conn->prepare("INSERT INTO contenir (idrecette, idingredients, quantity, unit) VALUES (?, ?, ?, ?)");
         $qry_addIngredient->bind_param("iids", $idRecette, $idIngredient, $quantity, $unit);
@@ -68,10 +59,26 @@ class ingredient
             $this->response['error'] = false;
         } else {
             $this->response['error'] = true;
+            $this->response['message'] = 'Une erreur s\'est produite lors de l\'ajout de l\'ingrédient à la recette.';
+        }
+
+        return json_encode($this->response);
+    }
+    public function stepToRecette($conn, $idRecette,$stepnumber, $stepDescription)
+    {
+
+        $qry_addStep = $conn->prepare("INSERT INTO etape_prepa (etape_prepa.id_recette,num_prepa, description_etape) VALUES (?, ?, ?)");
+        $qry_addStep->bind_param("iis", $idRecette,$stepnumber, $stepDescription);
+
+        if ($qry_addStep->execute()) {
+            $this->response['error'] = false;
+        } else {
+            $this->response['error'] = true;
         }
 
         return $this->response;
     }
+
     public function getallingrients($conn)
     {
         $qry_getallingrients=$conn->prepare("SELECT nom_ingredients FROM ingredients");
@@ -89,6 +96,17 @@ class ingredient
             $this->response['message']= "Aucune ingredient trouver";
         }
         return $this->response;
+    }
+
+    public function getingredientid($conn, $nomingredient)
+    {
+        $qry_getIngredientId = $conn->prepare("SELECT idingredients FROM ingredients WHERE nom_ingredients = ?");
+        $qry_getIngredientId->bind_param("s", $nomingredient);
+        $qry_getIngredientId->execute();
+        $result = $qry_getIngredientId->get_result();
+        $row = $result->fetch_assoc();
+
+        return $row['idingredients'];
     }
     public function getMostUsedIngredients($conn)
     {

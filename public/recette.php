@@ -1,5 +1,16 @@
 
 <?php
-require_once __DIR__."/../includes/recette.php";
-require_once __DIR__ . "/../includes/footer.inc.php"
-?>
+require __DIR__ . "/../model/config.php";
+require_once __DIR__ . "/../controller/recettecontroller.php";
+
+use controller\RecetteController;
+
+$controlRecette = new RecetteController($conn);
+
+if (isset($_GET['id'])) {
+    $recetteId = intval($_GET['id']);
+    $controlRecette->showRecettedetail($recetteId);
+} else {
+    echo "ID de recette non spécifié.";
+}
+

@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const errorMessages = {
         field: document.getElementById('fielderror'),
         nom: document.getElementById('nomerror'),
-        prenom: document.getElementById('prenomer>WXC><ror'),
+        prenom: document.getElementById('prenomerror'),
         email: document.getElementById('emailerror'),
         pwd: document.getElementById('pwderror'),
         c_pwd: document.getElementById('c_pwderror'),
@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const successModal = document.getElementById('successModal');
     const successMessage = document.getElementById('successMessage');
     const closeModal = document.getElementsByClassName('close')[0];
+    if(closeModal){
+        closeModal.onclick = function() {
+            successModal.style.display = "none";
+        }
+    }
 
     if (signupForm) {
         signupForm.addEventListener('submit', function(event) {
@@ -41,12 +46,12 @@ document.addEventListener('DOMContentLoaded', function() {
                             }
                         }
                     } else {
-                        successMessage.textContent = data.message; // Afficher le message de succès
-                        successModal.style.display = "block"; // Afficher la modal
+                        successMessage.textContent = data.message;
+                        successModal.style.display = "block";
 
                         setTimeout(() => {
-                            window.location.href = 'login.php'; // Redirection vers la page d'accueil
-                        }, 2000);
+                            window.location.href = 'login.php';
+                        }, 1000);
                     }
 
                 })

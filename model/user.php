@@ -1,6 +1,6 @@
 <?php
-namespace Model;
 
+namespace Model;
 class User{
      private $response=array();
      private $stm_result;
@@ -72,7 +72,7 @@ class User{
 
             if($qry_addusr->execute()){
                 $this->response['error']=false;
-                $this->response['message']= "Vous avez bien été inscrit(e)";
+                $this->response['message']= "Nouvel administrateur ajouté";
 
             }
             else{
@@ -81,6 +81,22 @@ class User{
             }
         }
         return $this->response;
+    }
+    public function checkUserExists($conn, $email, $excludeId) {
+        $query = "SELECT COUNT(*) as count FROM utilisateur WHERE emailuser = ? AND iduser != ?";
+        $stmt = $conn->prepare($query);
+
+        $stmt->bind_param("si", $email, $excludeId);
+        if($stmt->execute()){
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $stmt->close();
+            return $row['count'] > 0;
+        }else{
+            return false;
+        }
+
+
     }
 
     public function getusrbyID($conn,$userid)
@@ -93,16 +109,32 @@ class User{
         if($result->num_rows >0){
             $user=$result->fetch_assoc();
             $this->response['error']=false;
-            $this->response['message']=json_encode($user);
+            $this->response['message']=$user;
         }else{
             $this->response['error']=true;
             $this->response['message']=" Aucun utilisateur trouvé avec cet ID.";
         }
-        return $this->response;
+        return json_encode($this->response);
     }
     public function getallusr($conn)
     {
-        $qry_getallusr=$conn->prepare("SELECT * FROM utilisateur");
+        $qry_getallusr=$conn->prepare("SELECT 
+                            u.iduser,
+                            u.nomuser,
+                            u.prenomuser,
+                            u.emailuser,
+                            u.date_inscription,
+                            u.avatar,
+                            COUNT(r.idrecette) AS nombre_recettes
+                        FROM 
+                            utilisateur u
+                        LEFT JOIN 
+                            recette r ON u.iduser = r.iduser
+                        GROUP BY 
+                            u.iduser, u.nomuser, u.iduser, u.prenomuser, u.emailuser, u.date_inscription, u.avatar, u.avatar
+                            ORDER BY 
+                            nombre_recettes DESC;
+");
         $qry_getallusr->execute();
         $result=$qry_getallusr->get_result();
 
@@ -113,40 +145,116 @@ class User{
                 $users[] = $user;
             }
             $this->response['error']=false;
-            $this->response['message']= json_encode($users);
+            $this->response['message']= $users;
 
         }else{
             $this->response['error']=true;
             $this->response['message']=" Aucun utilisateur trouvé.";
         }
 
-        return $this->response;
+        return json_encode($this->response);
+    }
+    public function getallrole($conn,$role)
+    {
+        $qry_getallusrWR=$conn->prepare("SELECT 
+                                            u.iduser,
+                                            u.nomuser,
+                                            u.prenomuser,
+                                            u.emailuser,
+                                            u.date_inscription,
+                                            u.avatar,
+                                            COUNT(r.idrecette) AS nombre_recettes
+                                        FROM 
+                                            utilisateur u
+                                        LEFT JOIN 
+                                            recette r ON u.iduser = r.iduser 
+                                        WHERE roles=?
+                                        GROUP BY 
+                                        u.iduser, u.nomuser, u.iduser, u.prenomuser, u.emailuser, u.date_inscription, u.avatar, u.avatar
+                                        ORDER BY 
+                                        nombre_recettes DESC");
+
+
+        $qry_getallusrWR->bind_param('s',$role);
+        $qry_getallusrWR->execute();
+        $result=$qry_getallusrWR->get_result();
+
+        if($result->num_rows >0){
+            $users = array();
+
+            while ($user = $result->fetch_assoc()) {
+                $users[] = $user;
+            }
+            $this->response['error']=false;
+            $this->response['message']= $users;
+
+        }else{
+            $this->response['error']=true;
+            $this->response['message']=" Aucun utilisateur trouvé.";
+        }
+
+        return json_encode($this->response);
     }
 
 
-    public function updateuser($conn, $name,$prenom,$email,$password,$userid){
 
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    public function updateuser($conn, $name,$prenom,$email,$password,$image,$updateDate,$userid){
+        if ($this->checkUserExists($conn,$email,$userid)){
+            $this->response['error']=true;
+            $this->response['message']= ['email'=>"Cette email exist deja dans la base de donner."];
+        }else {
 
-        $qry_updateuser=$conn->prepare("UPDATE utilisateur SET nomuser=?,prenomuser=?,emailuser=?,userpwd=?
+
+            $qry_updateuser = $conn->prepare("UPDATE utilisateur
+                                        SET nomuser=?,prenomuser=?,emailuser=?,userpwd=?,avatar=?,date_modification=?
                                         WHERE iduser=?");
-        $qry_updateuser->bind_param("ssssi",$name,$prenom,$email,$hashed_password,$userid);
+            $qry_updateuser->bind_param("ssssssi", $name, $prenom, $email, $password, $image, $updateDate, $userid);
 
-        if ($qry_updateuser->execute()) {
+            if ($qry_updateuser->execute()) {
 
-            if ($qry_updateuser->affected_rows > 0) {
-                $this->response['error'] = false;
-                $this->response['message'] = "Vos données ont bien été mises à jour.";
+                if ($qry_updateuser->affected_rows > 0) {
+                    $this->response['error'] = false;
+                    $this->response['message'] = "Vos données ont bien été mises à jour.";
+                } else {
+                    $this->response['error'] = true;
+                    $this->response['message'] = "Aucune donnée mise à jour. Veuillez vérifier les valeurs fournies.";
+                }
             } else {
                 $this->response['error'] = true;
-                $this->response['message'] = "Aucune donnée mise à jour. Veuillez vérifier les valeurs fournies.";
+                $this->response['message'] = "Une erreur s'est produite, la mise à jour de vos données n'a pas pu aboutir.";
             }
-        } else {
-            $this->response['error'] = true;
-            $this->response['message'] = "Une erreur s'est produite, la mise à jour de vos données n'a pas pu aboutir.";
         }
         return $this->response;
     }
+    public function getNumUser($conn)
+    {
+        $qry_getNumUser = $conn->prepare("SELECT COUNT(*) as count FROM utilisateur");
+        $qry_getNumUser->execute();
+        $result = $qry_getNumUser->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row['count'] > 0) {
+            return  $this->response['message'] = $row['count'];
+        } else {
+            return false;
+        }
+    }
+
+    public function getNumRole($conn,$roles)
+    {
+        $qry_getNumMembre = $conn->prepare("SELECT COUNT(*) as count FROM utilisateur WHERE roles=?");
+        $qry_getNumMembre->bind_param("s", $roles);
+        $qry_getNumMembre->execute();
+        $result = $qry_getNumMembre->get_result();
+        $row = $result->fetch_assoc();
+
+        if ($row['count'] > 0) {
+            return  $this->response['message'] = $row['count'];
+        } else {
+            return false;
+        }
+    }
+
 
     public function deleteusr($conn,$userid){
 
@@ -155,11 +263,9 @@ class User{
         
         if($qry_deleteusr->execute()){
             $this->response['error']=false;
-            $this->response['message']="Cet utilisateur a été supprimé avec succès.";
         }else{
             $this->response['error']=true;
             $this->response['message']="Une erreur s'est produite, impossible de supprimer l'utilisateur.";
-
         }
 
         return $this->response;

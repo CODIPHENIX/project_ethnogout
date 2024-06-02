@@ -9,10 +9,11 @@ require_once __DIR__ . "/../../controller/usercontroller.php";
 
 use controller\usercontroller;
 
-$controluser = new usercontroller();
+$controluser = new usercontroller($conn);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $controluser->Postadmin($conn);
+    $controluser->Postadmin();
+
 
 } else {
     http_response_code(405); // Méthode non autorisée

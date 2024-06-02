@@ -29,7 +29,7 @@
             <i class="fa-solid fa-magnifying-glass"></i>
         </div>
         <div class="ssdiv p_ssdiv">
-z            <div class="sdiv">
+           <div class="sdiv">
                 <form action="#" method="get" class="search_form sfnav">
                     <input type="search" name="search_bar" id="searchbar" placeholder="Je cherche des recettes...">
                     <div class="icon_s">
@@ -46,12 +46,19 @@ z            <div class="sdiv">
             <ul class="content">
                 <?php if(isset($_SESSION['loginid'])){ ?>
                 <?php if($_SESSION['logintype']==='admin'){ ?>
-                        <li class="cnt_link passive"><a href="./myrecette.php">Dashboard</a></li>
+                        <li class="cnt_link passive">
+                            <div class="userinfo">
+                                <span><i class="fa-regular fa-user"></i></span>
+                                <div><?=$_SESSION['username']?><span class="logintype">(<?=$_SESSION['logintype']?>)</span></div>
+                            </div>
+                        </li>
+                        <li class="cnt_link passive"><a href="./dashboard.php">Dashboard</a></li>
                     <?php } else{?>
+                        <li class="cnt_link passive"><div class="userinfo"><span><i class="fa-regular fa-user"></i></span><?=$_SESSION['username']?></div></li>
                         <li class="cnt_link passive"><a href="./myrecette.php">Mon Carnet</a></li>
                     <?php }?>
 
-                <li class="cnt_link passive"><a href="">Parametre de Compte</a></li>
+                <li class="cnt_link passive"><a href="./editUser.php">Parametre de Compte</a></li>
                 <li class="cnt_link activel"><a href="../php/logout.php">Se Déconnecter</a></li>
                 <?php } else{?>
                 <li class="cnt_link passive"><a href="./signin.php">S'Inscrire</a></li>

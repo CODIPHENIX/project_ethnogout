@@ -8,10 +8,10 @@ require_once __DIR__ . "/../../controller/usercontroller.php";
 
 use controller\usercontroller;
 
-$controluser=new usercontroller();
+$controluser=new usercontroller($conn);
 
 if($_SERVER['REQUEST_METHOD']==='POST'){
-    $controluser->loginuser($conn);
+    $controluser->loginuser();
    
 }
 else {
