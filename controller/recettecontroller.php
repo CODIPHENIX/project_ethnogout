@@ -485,6 +485,11 @@ class RecetteController
         $response1=json_decode($resultRR,true);
         $newrecettes=$response1['message'];
 
+        $responsepays=$this->paysModel->getallpayinfo($this->conn,4);
+        $resultU=json_decode($responsepays,true);
+        $pays=$resultU['message'];
+
+
         include '../includes/home.php';
     }
 

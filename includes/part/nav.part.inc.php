@@ -31,7 +31,8 @@
         <div class="ssdiv p_ssdiv">
            <div class="sdiv">
                 <form action="#" method="get" class="search_form sfnav">
-                    <input type="search" name="search_bar" id="searchbar" placeholder="Je cherche des recettes...">
+                    <label for="search_bar"></label>
+                    <input type="search" name="search" id="search_bar" placeholder="Je cherche des recettes...">
                     <div class="icon_s">
                         <i class="fa-solid fa-magnifying-glass " ></i>
                     </div>

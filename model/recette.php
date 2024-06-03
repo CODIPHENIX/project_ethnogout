@@ -610,4 +610,33 @@ class recette
         return $response;
     }
 
+    public function seachbar($conn,$query)
+    {
+        $sql = "
+        SELECT DISTINCT r.idrecette, r.titrerecette, r.image_recette
+        FROM recette r
+        LEFT JOIN contenir c ON r.idrecette = c.idrecette
+        LEFT JOIN ingredients i ON c.idingredients = i.idingredients
+        WHERE r.titrerecette LIKE ? OR i.nom_ingredients LIKE ?
+    ";
+
+        $stmt = $conn->prepare($sql);
+        $searchTerm = "%" . $query . "%";
+        $stmt->bind_param("ss", $searchTerm, $searchTerm);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $recettes=array();
+            while ($recette = $result->fetch_assoc()) {
+                $recettes[]=$recette;
+            }
+            $this->response['error']=false;
+            $this->response['message']=$recettes;
+        } else {
+            $this->response['error']=true;
+            $this->response['message']='Aucun résultat trouvé pour cette recherche.';
+        }
+        return json_encode($this->response);
+    }
 }

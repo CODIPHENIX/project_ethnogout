@@ -72,25 +72,24 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
                 </div>
 
             </div>
+            <div class="utilisateur">
+                <div class="heading dv">
+                    <h3>RUBRIQUE DÉCOUVERTE</h3>
+                </div>
+                <div class="grid_content">
+                    <div class="numdash">
+                        <a href="./pays.php"><h3>AFRIQUE</h3></a>
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
 
 
     </section>
 
-    <div id="deleteModal" class="modal">
-        <div class="delete_model">
-            <div class="flex_dlt">
-                <span class="close">&times;</span>
-                <div class="grid_dlt">
-                    <div class="delete_text"><p id="successMessage">Êtes-vous sûr de vouloir supprimer cette recette ?</p></div>
-
-                    <button id="delete_btn"> Oui</button>
-
-                </div>
-
-            </div>
-        </div>
 
 
 

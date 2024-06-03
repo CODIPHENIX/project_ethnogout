@@ -250,11 +250,17 @@ ul.decouvert{
 
 }
 .content_grid{
-    margin-top: auto;
+    margin: auto;
+    display: grid;
+    gap: 1rem;
 }
 .content_grid li{
     box-sizing: border-box;
+
     text-align: justify;
+}
+.content_grid li a{
+  color: var(--primary-color);
 }
 
 .image_grid li {
@@ -912,6 +918,10 @@ textarea.comment{
     background-color: var(--primary-color);
     padding-bottom: 0.5rem;
 }
+.editpays{
+    width: 100%;
+    background-color: var(--light-grey-color);
+}
 
 .avatar-user{
     padding: 0;
@@ -942,6 +952,10 @@ margin-bottom: 0.5rem;
     padding: 1rem 0;
     flex-direction: column;
     gap:2rem;
+}
+.payscol{
+ justify-content: center;
+    align-content: center;
 }
 .div_tmp, .div_time{
     display: flex;
@@ -1116,6 +1130,7 @@ input[type=number] {
 .grid_dash{
     display: grid;
     gap: 2rem;
+
     grid-template-columns:  repeat(auto-fill, minmax(300px, 1fr));
 }
 
@@ -1125,6 +1140,16 @@ input[type=number] {
     border-radius: 1rem;
     overflow: hidden;
     box-shadow: 1px 3px 9px rgba(0, 0, 0, 0.2);
+    transition: all ease-in-out 500ms;
+}
+.utilisateur:hover{
+
+    backdrop-filter:brightness(90%);
+    background-color: rgba(71, 23, 19, 0.29);
+    .numdash h3{
+        color: #FFFFFF;
+        font-size: 7rem;
+    }
 }
 .heading h3{
     padding: 1rem;
@@ -1197,6 +1222,13 @@ display: block;
     color: var(--thirt-color);
 }
 /* responsive */
+
+.dashpays{
+    margin-top: 2rem;
+}
+.modifc{
+    justify-content: space-around;
+}
 @media screen and (min-width:768px) {
 
     body{
@@ -1278,6 +1310,9 @@ display: block;
     gap: 1rem;
     grid-template-columns: auto auto;
 }
+.modifp{
+    grid-template-columns:  repeat(2,1fr);
+}
 
 .newRecette{
     margin-top: 2rem;
@@ -1297,6 +1332,10 @@ display: block;
 
     }
 
+}
+
+.dashpays{
+    margin-top: 2rem;
 }
 @media screen and (min-width:1024px) {
     body{
@@ -1349,6 +1388,9 @@ display: block;
         width: 95%;
         max-width: 1200px;
         text-align: center;
+    }
+    .paysh p{
+        text-align: justify;
     }
     .t_rct, .b_rct{
 
@@ -1421,6 +1463,8 @@ display: block;
         margin: 20% auto 0;
 
     }
-
+    .dashpays{
+        margin-top: 2rem;
+    }
 }
 

@@ -6,42 +6,40 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
     <section class="part">
         <h2>Découverte</h2>
         <div class="grid_d">
+            <?php if(is_array($pays)):?>
+                <?php foreach($pays as $pay):?>
+
             <ul class="decouvert">
-                <div class="image_grid">
-                    <li class="d_part"><a href="#" alt="image recette"></a></li>
-                </div>
-                <div class="content_grid">
-                    <li class="d_part"><h3>Titre</h3></li>
-                    <li class="d_part">Plongez dans un monde de saveurs vibrantes et de traditions culinaires riches avec....voir plus</li>
-                </div>
+                <li>
+                    <ul class="image_grid" >
+                        <li class="d_part"> <a href="./paysinfo.php?id=<?php echo intval($pay['idpays'])?>">
+                                <img src="
+                        <?php echo htmlspecialchars($pay['imagepays']!==null?$pay['imagepays']:
+                                    './asset/appimg/bck_img.jpg'); ?>"
+                                     alt="image recette"></a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="content_grid">
+                        <li class="d_part"><h3><?php echo htmlspecialchars($pay['nompays'])?></h3></li>
+                        <li class="d_part">
+                            <?php
+                            echo strlen(htmlspecialchars($pay['description'])) > 100
+                                ? substr(htmlspecialchars($pay['description']), 0, 100) . '...<a href="./paysinfo.php?id='.
+                                intval($pay['idpays']).'">voir plus</a>'
+                                : htmlspecialchars($pay['description']);
+                            ?>
+                        </li>
+                    </ul>
+                </li>
             </ul>
-            <ul class="decouvert">
-                <div class="image_grid">
-                    <li class="d_part"><a href="" alt="image recette"></a></li>
-                </div>
-                <div class="content_grid">
-                    <li class="d_part"><h3>Titre</h3></li>
-                    <li class="d_part">Plongez dans un monde de saveurs vibrantes et de traditions culinaires riches avec....voir plus</li>
-                </div>
-            </ul>
-            <ul class="decouvert">
-                <div class="image_grid">
-                    <li class="d_part"><a href="" alt="image recette"></a></li>
-                </div>
-                <div class="content_grid">
-                    <li class="d_part"><h3>Titre</h3></li>
-                    <li class="d_part">Plongez dans un monde de saveurs vibrantes et de traditions culinaires riches avec....voir plus</li>
-                </div>
-            </ul>
-            <ul class="decouvert">
-                <div class="image_grid">
-                    <li class="d_part"><a href="" alt="image recette"></a></li>
-                </div>
-                <div class="content_grid">
-                    <li class="d_part"><h3>Titre</h3></li>
-                    <li class="d_part">Plongez dans un monde de saveurs vibrantes et de traditions culinaires riches avec....voir plus</li>
-                </div>
-            </ul>
+                <?php endforeach;?>
+            <?php else:?>
+                <p><?php echo $pays ?></p>
+            <?php endif;?>
+
+
         </div>
 
     </section>

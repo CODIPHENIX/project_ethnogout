@@ -20,9 +20,9 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
 
             <div class="dropdown">
                 <ul class="dropdown_l ">
-                    <li><a href="./myrecette.php">Mes Recette <span>0</span></a></li>
-                    <li><a href="./myavis.php">Mes avis <span>0</span></a></li>
-                    <li><a href="./favoris.php">Mes Favoris <span>0</span></a></li>
+                    <li><a href="./myrecette.php">Mes Recette </a></li>
+                    <li><a href="./myavis.php">Mes avis </a></li>
+                    <li><a href="./favoris.php">Mes Favoris </a></li>
                 </ul>
             </div>
 
@@ -30,11 +30,11 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
 
 
         <ul class="nav_carnet">
-            <li ><a href="./myrecette.php">Mes Recette <span>0</span></a></li>
+            <li ><a href="./myrecette.php">Mes Recette </a></li>
             <li class="divider"></li>
-            <li><a href="./myavis.php">Mes avis <span>0</span></a></li>
+            <li><a href="./myavis.php">Mes avis </a></li>
             <li class="divider"></li>
-            <li ><a href="./favoris.php">Mes Favoris <span>0</span></a></li>
+            <li ><a href="./favoris.php">Mes Favoris </a></li>
             <li class="divider"></li>
             <li class="active_c"><a href="./newRecette.php">Creer une recette <span><i class="fa-solid fa-square-plus"></i></span></a></li>
         </ul>

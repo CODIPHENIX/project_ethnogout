@@ -5,6 +5,7 @@ use Model\avis;
 use Model\favoris;
 use Model\user;
 use Model\recette;
+use model\pays;
 
 require_once __DIR__."/../model/recette.php";
 require_once __DIR__."/../model/pays.php";
@@ -20,12 +21,14 @@ class adminControlleur
     public $userModel;
     public $recetteModel;
     public $favorisModel;
+    public $paysModel;
     public function __construct($conn) {
         $this->response = array();
         $this->userModel= new user();
         $this->avisModel= new avis();
         $this->recetteModel= new recette();
         $this->favorisModel= new favoris();
+        $this->paysModel= new pays();
         $this->conn = $conn;
     }
 
@@ -98,6 +101,17 @@ class adminControlleur
 
 
         include "../includes/dashboard.inc.php";
+
+    }
+
+    public function showdiffpaysinfo(){
+        session_start();
+        $responsepays=$this->paysModel->getallpayinfo($this->conn);
+        $resultU=json_decode($responsepays,true);
+        $pays=$resultU['message'];
+
+
+        include "../includes/pays/viewpays.php";
 
     }
 

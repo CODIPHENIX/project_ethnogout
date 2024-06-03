@@ -183,12 +183,6 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
         </div>
 
     </section>
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <p id="successMessage"></p>
-        </div>
-    </div>
 </main>
 <?php
 

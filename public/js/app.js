@@ -15,6 +15,10 @@ const previewRectte=document.querySelector("#img_recette")
     if( previewAvatar)(
         previewBeforeUpload("avatar-user")
     )
+    const previewPays=document.querySelector("#img_pays")
+    if( previewPays)(
+        previewBeforeUpload("img_pays")
+    )
 
 
 })
