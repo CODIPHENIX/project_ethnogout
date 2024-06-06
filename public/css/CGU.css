@@ -1,5 +1,5 @@
 
-    /* Styles CSS */
+/* Styles CSS */
     main.CGU{
         background-color: #FCE0B1; 
     }
@@ -10,20 +10,27 @@
     padding: 3rem;
     background-color: #FFF;
     border-radius: 0.8rem;
-    
+    display: grid;
+    gap: 2rem;
     box-shadow: 1px 3px 9px rgba(0, 0, 0, 0.2);
 }
 
 h1.CGU {
+    font-size: 3rem;
     text-align: center;
     margin-bottom: 2rem;
 }
 
 p.CGU {
     margin-bottom: 1rem;
+    text-align:  center;
 
 }
 ol.CGU{
+    letter-spacing: .1rem;
+    line-height: 2.5rem;
+    display: grid;
+    gap: 1rem;
     text-align: justify;
     list-style: decimal;
     width: 100%;
@@ -31,6 +38,9 @@ ol.CGU{
 }
 ol.CGU li{
     box-sizing: border-box;
+}
+.ol li b{
+    display: block;
 }
 
 .contact-link.CGU {

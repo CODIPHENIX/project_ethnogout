@@ -49,7 +49,15 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
                             </a>
                         </li>
                         <li class="title"><?php echo htmlspecialchars($recette['titrerecette']); ?></li>
-                        <li>note</li>
+                        <li>
+                            <div class="stars noteDonner">
+                                <?php if (intval($recette['moyenne_note'])): ?>
+                                    <?php for ($i = 1; $i <= 5; $i++): ?>
+                                        <i class=" fa <?= $i <= round(intval($recette['moyenne_note'])) ? 'star checked fa-star ' : 'fa-star' ?>"></i>
+                                    <?php endfor; ?>
+                                <?php endif; ?>
+                            </div>
+                        </li>
                         <li>
                             <ul class="crud_a">
                                 <li class="iconUsra ">

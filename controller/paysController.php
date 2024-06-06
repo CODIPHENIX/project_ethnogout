@@ -109,7 +109,7 @@ class paysController
     public function showEditform($idpays)
     {
         session_start();
-        $infopays=$this->paysModel->recettebypays($this->conn,$idpays);
+        $infopays=$this->paysModel->getpaysinfobyid($this->conn,$idpays);
 
         include "../includes/pays/editpaysinfo.php";
     }

@@ -36,7 +36,7 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
             <li>
                 <div class="icon_r"><i class="fi fi-rs-hat-chef"></i></div>
                 <div><?php echo htmlspecialchars($Temptolal)<60? htmlspecialchars($Temptolal).'min'
-                        : floor(htmlspecialchars($Temptolal)%60).'h'. sprintf('%02d',floor(htmlspecialchars($Temptolal)/60));?></div>
+                        : floor(htmlspecialchars($Temptolal)/60).'h'. sprintf('%02d',floor(htmlspecialchars($Temptolal)%60));?></div>
 
             </li>
             <li>
@@ -70,9 +70,9 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
         <ul class="time_r">
             <li><h3>Preparation:</h3></li>
             <li>Preparation<span><?php echo htmlspecialchars($responseRecettes['temp_prepa'])<60? htmlspecialchars($responseRecettes['temp_prepa']).'min'
-                        : floor(htmlspecialchars($responseRecettes['temp_prepa'])%60).'h'. sprintf('%02d',floor(htmlspecialchars($responseRecettes['temp_prepa'])/60));?></span></li>
+                        : floor(htmlspecialchars($responseRecettes['temp_prepa'])/60).'h'. sprintf('%02d',floor(htmlspecialchars($responseRecettes['temp_prepa'])%60));?></span></li>
             <li>Cuisson<span><?php echo htmlspecialchars($responseRecettes['cook_temp'])<60? htmlspecialchars($responseRecettes['cook_temp']).'min'
-                        : floor(htmlspecialchars($responseRecettes['cook_temp'])%60).'h'. sprintf('%02d',floor(htmlspecialchars($responseRecettes['cook_temp'])/60));?></span></li>
+                        : floor(htmlspecialchars($responseRecettes['cook_temp'])/60).'h'. sprintf('%02d',floor(htmlspecialchars($responseRecettes['cook_temp'])%60));?></span></li>
         </ul>
 
         <ul class="etape_r">
@@ -132,9 +132,13 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
                         <div class="commentCrud">
 
                             <div><?php echo htmlspecialchars($commentaire['nomuser'])?></div>
+                            <?php if(isset($_SESSION['loginid'])){ ?>
                             <div class="actionCmt">
-                            <button class=" <?php echo htmlspecialchars($iduser===$commentaire['iduser']?'iconcomment':'disabled')?>" id="actionModifybtn"
+
+                            <button class="
+                            <?php echo htmlspecialchars($iduser===$commentaire['iduser']?'iconcomment':'disabled')?>" id="actionModifybtn"
                                     <?php echo htmlspecialchars($iduser===$commentaire['iduser']?'':'disabled')?>><i class="fa-solid fa-ellipsis"></i>
+
                             </button>
                                 <div class="actionCmtbtn">
                                     <button class="modifCmt">Modifier</button>
@@ -142,7 +146,7 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
 
                                 </div>
                             </div>
-
+                            <?php } ?>
                         </div>
                     </div>
                     <div class="comment_user">
@@ -156,6 +160,7 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
                                 <?php endif; ?>
                             </div>
                         </div>
+                        <?php if(isset($_SESSION['loginid'])){ ?>
                         <?php if($iduser===$commentaire['iduser']){?>
                         <form class="modifForm" method="post" id="test" action="../api/avis/updateAvis.php">
                             <label for="modifcomment">
@@ -188,6 +193,7 @@ require_once __DIR__ . "/../includes/part/nav.part.inc.php";
                             </div>
                         </form>
                     <?php };?>
+                    <?php }?>
                     </div>
 
 </div>

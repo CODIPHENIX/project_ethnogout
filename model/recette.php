@@ -182,7 +182,14 @@ class recette
         return $this->response;
     }
     public function getrecettebyidusr($conn,$userid){
-        $qry_getrecettebyidusr = $conn->prepare("SELECT * FROM recette WHERE iduser = ?");
+        $qry_getrecettebyidusr = $conn->prepare("SELECT r.idrecette,r.image_recette,r.titrerecette,u.iduser,COALESCE(AVG(a.note), 0) as moyenne_note
+                                                    FROM recette r 
+                                                    INNER JOIN utilisateur u
+                                                    ON r.iduser=u.iduser
+                                                    LEFT JOIN avis a 
+                                                    ON r.idrecette = a.idrecette
+                                                    WHERE u.iduser = ?
+                                                    GROUP BY r.idrecette, r.image_recette, r.titrerecette, u.iduser");
         $qry_getrecettebyidusr->bind_param("i", $userid);
         $qry_getrecettebyidusr->execute();
 
